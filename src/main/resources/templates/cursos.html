@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpringEduManager - Cursos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">SpringEduManager</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/estudiantes">Estudiantes</a>
+                <a class="nav-link active fw-semibold" href="/cursos">Cursos</a>
+                <a class="nav-link text-warning" href="/h2-console" target="_blank">Consola H2</a>
+                <a class="nav-link text-light ms-3" href="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-7">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white"><h5 class="m-0 text-primary">Catálogo de Cursos</h5></div>
+                    <div class="card-body">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr><th>ID</th><th>Curso</th><th>Descripción</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="c : ${cursos}">
+                                    <td th:text="${c.id}">1</td>
+                                    <td th:text="${c.nombre}">Curso</td>
+                                    <td th:text="${c.descripcion}">Descripción</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white"><h5 class="m-0 text-danger">Nuevo Curso (Solo Rol ADMIN)</h5></div>
+                    <div class="card-body">
+                        <form th:action="@{/cursos}" th:object="${nuevoCurso}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre del Curso</label>
+                                <input type="text" class="form-control" th:field="*{nombre}" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <input type="text" class="form-control" th:field="*{descripcion}" required />
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">Guardar Curso</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
